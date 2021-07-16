@@ -1,0 +1,10 @@
+name: Navigator
+main: de.maifii.navigator.main.Navigator
+version: 1.0
+
+commands:
+  set:
+    description: Location setzen
+
+authors:
+  - MaifiiDE
