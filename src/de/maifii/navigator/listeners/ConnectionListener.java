@@ -10,13 +10,15 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 public class ConnectionListener implements Listener {
 
-
     @EventHandler
     public void onConnect(PlayerJoinEvent event) {
         Player spieler = (Player) event.getPlayer();
 
         spieler.getInventory().clear();
         ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.RECORD_3, "§8§l»§7» §eNavigator §8| §7Rechtsklick", 0);
+        ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.BARRIER, "§8§l»§7» §7§lGadget Auswählen!", 2);
+        ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.NOTE_BLOCK, "§8§l»§7» §eGadgets §8| §7Rechtsklick", 8);
+
 
         event.setJoinMessage(null);
     }

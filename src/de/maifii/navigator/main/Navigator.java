@@ -9,14 +9,19 @@ import de.maifii.navigator.commands.SetCommand;
 import de.maifii.navigator.listeners.ConnectionListener;
 import de.maifii.navigator.listeners.SpielerListener;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.ArrayList;
 
 public class Navigator extends JavaPlugin {
 
     private static Navigator instance;
     public static String Prefix = "§8§l»§7» §eNavigator§7: ";
+
+    private static ArrayList<Player> BuildMode;
 
 
     @Override
@@ -27,6 +32,9 @@ public class Navigator extends JavaPlugin {
         pluginManager.registerEvents((Listener) new SpielerListener(), this);
 
         getCommand("set").setExecutor(new SetCommand());
+
+
+        BuildMode = new ArrayList<Player>();
 
         instance = this;
     }
