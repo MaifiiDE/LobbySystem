@@ -33,7 +33,7 @@ public class MoveListener implements Listener {
             spieler.getWorld().playEffect(spieler.getLocation(), Effect.WATERDRIP, 2);
         }
         else if(de.maifii.navigator.main.Navigator.getSchneePartikel().contains(spieler)) {
-            spieler.getWorld().playEffect(spieler.getLocation(), Effect.SNOWBALL_BREAK, 2);
+            spieler.getWorld().playEffect(spieler.getLocation(), Effect.SNOW_SHOVEL, 2);
         }
 
     }

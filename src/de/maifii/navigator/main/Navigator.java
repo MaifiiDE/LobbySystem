@@ -9,6 +9,7 @@ import de.maifii.navigator.commands.SetCommand;
 import de.maifii.navigator.listeners.ConnectionListener;
 import de.maifii.navigator.listeners.CreatureSpawnListener;
 import de.maifii.navigator.listeners.Gadgets.EnderPerleListener;
+import de.maifii.navigator.listeners.Gadgets.EnterHakenGadget;
 import de.maifii.navigator.listeners.MoveListener;
 import de.maifii.navigator.listeners.SpielerListener;
 import org.bukkit.Bukkit;
@@ -32,6 +33,7 @@ public class Navigator extends JavaPlugin {
     private static ArrayList<Player> SchneePartikel;
 
     private static ArrayList<Player> EnderPerleGadget;
+    private static ArrayList<Player> EnterhakenGadget;
 
 
     @Override
@@ -43,6 +45,8 @@ public class Navigator extends JavaPlugin {
         pluginManager.registerEvents((Listener)new EnderPerleListener(), this);
         pluginManager.registerEvents((Listener) new MoveListener(), this);
         pluginManager.registerEvents((Listener) new CreatureSpawnListener(), this);
+        pluginManager.registerEvents((Listener) new EnterHakenGadget(), this);
+
 
         getCommand("set").setExecutor(new SetCommand());
 
@@ -56,6 +60,7 @@ public class Navigator extends JavaPlugin {
         HerzPartikel = new ArrayList<Player>();
 
         EnderPerleGadget = new ArrayList<Player>();
+        EnterhakenGadget = new ArrayList<Player>();
     }
 
 
@@ -86,6 +91,9 @@ public class Navigator extends JavaPlugin {
         return SchneePartikel;
     }
 
+    public static ArrayList<Player> getEnterhakenGadget() {
+        return EnterhakenGadget;
+    }
 
     public static ArrayList<Player> getEnderPerleGadget() {
         return EnderPerleGadget;
