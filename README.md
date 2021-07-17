@@ -1,6 +1,6 @@
 # LobbySystem | Hotbar Navigator
 
-Noch nicht fertig!
+In Arbeit!
 
 ## Was macht dieses Plugin?
 Dieses Plugin ist ein komplettes LobbySystem für Spigot 1.8.
