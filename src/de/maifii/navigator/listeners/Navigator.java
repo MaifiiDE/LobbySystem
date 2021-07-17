@@ -11,12 +11,20 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 public class Navigator implements Listener {
 
     private static String ExtraGUI = "§8§l»§7» §eExtras";
     private static String GadgetGUI = "§8§l»§7» §eGadgets";
     private static String EffektGUI = "§8§l»§7» §eEffekte";
+
+
+
+    @EventHandler
+    public void onInvClick(InventoryClickEvent event) {
+        event.setCancelled(true);
+    }
 
 
 
@@ -31,13 +39,13 @@ public class Navigator implements Listener {
             ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.STICK, "§8§l»§7» §eKnockBackFFA", 2);
 
             ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.BARRIER, "§8§l»§7» §eZurück", 8);
+
         }
     }
 
     @EventHandler
     public void onNavigatorInteract(PlayerInteractEvent event) {
         Player spieler = (Player) event.getPlayer();
-
 
         if (event.getItem() == null) return;
         if (event.getItem().getType() == Material.IRON_SWORD) {
@@ -50,30 +58,27 @@ public class Navigator implements Listener {
                 event.setCancelled(true);
                 LocationUtils.useLocation(event.getPlayer(), "BedWars");
             }
-        }
-        else if(event.getItem().getType() == Material.STICK) {
-            if(event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+        } else if (event.getItem().getType() == Material.STICK) {
+            if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
                 event.setCancelled(true);
                 LocationUtils.useLocation(event.getPlayer(), "KnockBackFFA");
             }
-        }
-        else if(event.getItem().getType() == Material.BARRIER) {
-            if(event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+        } else if (event.getItem().getType() == Material.BARRIER) {
+            if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
                 event.setCancelled(true);
                 spieler.getInventory().clear();
-                ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.RECORD_3, "§8§l»§7» §eNavigator §8| §7Rechtsklick", 0);
-                ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.BARRIER, "§8§l»§7» §7§lGadget Auswählen!", 2);
-                ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.NOTE_BLOCK, "§8§l»§7» §eExtras §8| §7Rechtsklick", 8);
+                if (de.maifii.navigator.main.Navigator.getEnderPerleGadget().contains(spieler)) {
+                    ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.RECORD_3, "§8§l»§7» §eNavigator §8| §7Rechtsklick", 0);
+                    ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.ENDER_PEARL, "§8§l»§7» §eEnderPerle §8| §7Rechtsklick", 2);
+                    ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.NOTE_BLOCK, "§8§l»§7» §eExtras §8| §7Rechtsklick", 8);
+                } else {
+                    ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.RECORD_3, "§8§l»§7» §eNavigator §8| §7Rechtsklick", 0);
+                    ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.BARRIER, "§8§l»§7» §7§lGadget Auswählen!", 2);
+                    ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.NOTE_BLOCK, "§8§l»§7» §eExtras §8| §7Rechtsklick", 8);
+                }
             }
         }
     }
-
-
-    @EventHandler
-    public void onInvClick(InventoryClickEvent event) {
-        event.setCancelled(true);
-    }
-
 
     public void openEffekte(Player spieler) {
         Inventory eff = Bukkit.createInventory(null, 9*6, EffektGUI);
@@ -95,6 +100,8 @@ public class Navigator implements Listener {
         ItemUtils.setItemInInventory(eff, Material.STAINED_GLASS_PANE, " ", 46 );
         ItemUtils.setItemInInventory(eff, Material.STAINED_GLASS_PANE, " ", 47 );
 
+        ItemUtils.setItemInInventory(eff, Material.WATER_BUCKET, "§8§l»§7» §eWasser Partikel", 13 );
+
         spieler.openInventory(eff);
     }
 
@@ -102,13 +109,15 @@ public class Navigator implements Listener {
     public void openGadgets(Player spieler) {
         Inventory gad = Bukkit.createInventory(null, 9*6, GadgetGUI);
 
+
+        //SCHEIBEN
         ItemUtils.setItemInInventory(gad, Material.STAINED_GLASS_PANE, " ", 0 );
         ItemUtils.setItemInInventory(gad, Material.STAINED_GLASS_PANE, " ", 1 );
         ItemUtils.setItemInInventory(gad, Material.STAINED_GLASS_PANE, " ", 2 );
 
 
         ItemUtils.setItemInInventory(gad, Material.FISHING_ROD, "§8§l»§7» §eGadgets", 10 );
-        ItemUtils.setItemInInventory(gad, Material.STAINED_GLASS_PANE, " ", 11 );
+         ItemUtils.setItemInInventory(gad, Material.STAINED_GLASS_PANE, " ", 11 );
 
         ItemUtils.setItemInInventory(gad, Material.BREWING_STAND_ITEM, "§8§l»§7» §7Effekte", 19 );
 
@@ -118,6 +127,10 @@ public class Navigator implements Listener {
         ItemUtils.setItemInInventory(gad, Material.STAINED_GLASS_PANE, " ", 45 );
         ItemUtils.setItemInInventory(gad, Material.STAINED_GLASS_PANE, " ", 46 );
         ItemUtils.setItemInInventory(gad, Material.STAINED_GLASS_PANE, " ", 47 );
+
+
+        ItemUtils.setItemInInventory(gad, Material.ENDER_PEARL, "§8§l»§7» §eEnderPerle", 13 );
+
 
         spieler.openInventory(gad);
     }
@@ -176,5 +189,52 @@ public class Navigator implements Listener {
     }
 
 
+    @EventHandler
+    public void onGadgetsClick(InventoryClickEvent event) {
+        if(!(event.getWhoClicked() instanceof Player)) return;
+        Player spieler = (Player) event.getWhoClicked();
+        if(event.getInventory().getTitle().equals(GadgetGUI)) {
+            event.setCancelled(true);
+            switch (event.getCurrentItem().getType()) {
+                case FISHING_ROD:
+                    //Gadget Logik
+                    break;
+
+                case ENDER_PEARL:
+                    ItemUtils.setItemInInventory(event.getWhoClicked().getInventory(), Material.ENDER_PEARL, "§8§l»§7» §eEnderPerle §8| §7Rechtsklick", 2);
+                    de.maifii.navigator.main.Navigator.getEnderPerleGadget().add(spieler);
+                    break;
+
+                case BREWING_STAND_ITEM:
+                    openEffekte((Player) event.getWhoClicked());
+                    break;
+            }
+        }
+    }
+
+
+    @EventHandler
+    public void onEffekteClick(InventoryClickEvent event) {
+        if(!(event.getWhoClicked() instanceof Player)) return;
+        Player spieler = (Player) event.getWhoClicked();
+        if(event.getInventory().getTitle().equals(EffektGUI)) {
+            event.setCancelled(true);
+            switch (event.getCurrentItem().getType()) {
+                case FISHING_ROD:
+                    openGadgets((Player) event.getWhoClicked());
+                    break;
+                case WATER_BUCKET:
+                    if(de.maifii.navigator.main.Navigator.getWasserPartikel().contains(spieler)) {
+                        spieler.sendMessage(de.maifii.navigator.main.Navigator.Prefix + "Du hast bereits die §eWasser Partikel §7ausgewählt.");
+                        spieler.closeInventory();
+                    }
+                    else {
+                        de.maifii.navigator.main.Navigator.getWasserPartikel().add(spieler);
+                        spieler.sendMessage(de.maifii.navigator.main.Navigator.Prefix + "Du hast die §eWasser Partikel §7ausgewählt.");
+                    }
+                    break;
+            }
+        }
+    }
 
 }

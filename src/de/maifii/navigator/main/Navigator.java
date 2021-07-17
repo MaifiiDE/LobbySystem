@@ -7,8 +7,12 @@ package de.maifii.navigator.main;
 
 import de.maifii.navigator.commands.SetCommand;
 import de.maifii.navigator.listeners.ConnectionListener;
+import de.maifii.navigator.listeners.CreatureSpawnListener;
+import de.maifii.navigator.listeners.Gadgets.EnderPerleListener;
+import de.maifii.navigator.listeners.MoveListener;
 import de.maifii.navigator.listeners.SpielerListener;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.EnderPearl;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
@@ -22,6 +26,12 @@ public class Navigator extends JavaPlugin {
     public static String Prefix = "§8§l»§7» §eNavigator§7: ";
 
     private static ArrayList<Player> BuildMode;
+    private static ArrayList<Player> WasserPartikel;
+    private static ArrayList<Player> EnderPartikel;
+    private static ArrayList<Player> HerzPartikel;
+    private static ArrayList<Player> SchneePartikel;
+
+    private static ArrayList<Player> EnderPerleGadget;
 
 
     @Override
@@ -30,6 +40,9 @@ public class Navigator extends JavaPlugin {
         pluginManager.registerEvents((Listener) new de.maifii.navigator.listeners.Navigator(),  this);
         pluginManager.registerEvents((Listener) new ConnectionListener(), this);
         pluginManager.registerEvents((Listener) new SpielerListener(), this);
+        pluginManager.registerEvents((Listener)new EnderPerleListener(), this);
+        pluginManager.registerEvents((Listener) new MoveListener(), this);
+        pluginManager.registerEvents((Listener) new CreatureSpawnListener(), this);
 
         getCommand("set").setExecutor(new SetCommand());
 
@@ -37,6 +50,12 @@ public class Navigator extends JavaPlugin {
         BuildMode = new ArrayList<Player>();
 
         instance = this;
+        SchneePartikel = new ArrayList<Player>();
+        WasserPartikel = new ArrayList<Player>();
+        EnderPartikel = new ArrayList<Player>();
+        HerzPartikel = new ArrayList<Player>();
+
+        EnderPerleGadget = new ArrayList<Player>();
     }
 
 
@@ -45,5 +64,30 @@ public class Navigator extends JavaPlugin {
     //getters
     public static Navigator getInstance() {
         return instance;
+    }
+
+    public static ArrayList<Player> getBuildMode() {
+        return BuildMode;
+    }
+
+    public static ArrayList<Player> getEnderPartikel() {
+        return EnderPartikel;
+    }
+
+    public static ArrayList<Player> getHerzPartikel() {
+        return HerzPartikel;
+    }
+
+    public static ArrayList<Player> getWasserPartikel() {
+        return WasserPartikel;
+    }
+
+    public static ArrayList<Player> getSchneePartikel() {
+        return SchneePartikel;
+    }
+
+
+    public static ArrayList<Player> getEnderPerleGadget() {
+        return EnderPerleGadget;
     }
 }
