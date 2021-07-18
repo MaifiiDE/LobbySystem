@@ -12,27 +12,27 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
-import de.maifii.navigator.main.Navigator;
+import de.maifii.navigator.main.Lobby;
 
 
 public class MoveListener implements Listener {
 
-    private Navigator instance;
+    private Lobby instance;
 
     @EventHandler
     public void onMove(PlayerMoveEvent event) {
         Player spieler = (Player) event.getPlayer();
 
-        if(de.maifii.navigator.main.Navigator.getEnderPartikel().contains(spieler)) {
+        if(Lobby.getEnderPartikel().contains(spieler)) {
             spieler.getWorld().playEffect(spieler.getLocation(), Effect.ENDER_SIGNAL, 1);
         }
-        else if(de.maifii.navigator.main.Navigator.getHerzPartikel().contains(spieler)) {
+        else if(Lobby.getHerzPartikel().contains(spieler)) {
             spieler.getWorld().playEffect(spieler.getLocation(), Effect.HEART, 1);
         }
-        else if(de.maifii.navigator.main.Navigator.getWasserPartikel().contains(spieler)) {
+        else if(Lobby.getWasserPartikel().contains(spieler)) {
             spieler.getWorld().playEffect(spieler.getLocation(), Effect.WATERDRIP, 2);
         }
-        else if(de.maifii.navigator.main.Navigator.getSchneePartikel().contains(spieler)) {
+        else if(Lobby.getSchneePartikel().contains(spieler)) {
             spieler.getWorld().playEffect(spieler.getLocation(), Effect.SNOW_SHOVEL, 2);
         }
 

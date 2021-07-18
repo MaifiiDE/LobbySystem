@@ -1,6 +1,6 @@
 package de.maifii.navigator.utils;
 
-import de.maifii.navigator.main.Navigator;
+import de.maifii.navigator.main.Lobby;
 import org.bukkit.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -48,7 +48,7 @@ public class LocationUtils {
         File file = new File("plugins//Lobby//" + name + ".yml");
 
         if(!file.exists()){
-            spieler.sendMessage(Navigator.Prefix + "Diese §eLocation §7wurde nicht gefunden.");
+            spieler.sendMessage(Lobby.Prefix + "Diese §eLocation §7wurde nicht gefunden.");
         }
 
         FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);

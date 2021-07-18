@@ -1,5 +1,6 @@
 package de.maifii.navigator.listeners;
 
+import de.maifii.navigator.main.Lobby;
 import de.maifii.navigator.utils.ItemUtils;
 import de.maifii.navigator.utils.LocationUtils;
 import org.bukkit.Bukkit;
@@ -11,14 +12,12 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 
 public class Navigator implements Listener {
 
     private static String ExtraGUI = "§8§l»§7» §eExtras";
     private static String GadgetGUI = "§8§l»§7» §eGadgets";
     private static String EffektGUI = "§8§l»§7» §eEffekte";
-
 
 
     @EventHandler
@@ -43,49 +42,58 @@ public class Navigator implements Listener {
         }
     }
 
-    @EventHandler
-    public void onNavigatorInteract(PlayerInteractEvent event) {
-        Player spieler = (Player) event.getPlayer();
 
+
+    @EventHandler
+    public void onNavigatorInteractionn(PlayerInteractEvent event) {
+        Player spieler = (Player) event.getPlayer();
         if (event.getItem() == null) return;
-        if (event.getItem().getType() == Material.IRON_SWORD) {
-            if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-                event.setCancelled(true);
-                LocationUtils.useLocation(event.getPlayer(), "SurvivalGames");
-            }
-        } else if (event.getItem().getType() == Material.BED) {
-            if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-                event.setCancelled(true);
-                LocationUtils.useLocation(event.getPlayer(), "BedWars");
-            }
-        } else if (event.getItem().getType() == Material.STICK) {
-            if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-                event.setCancelled(true);
-                LocationUtils.useLocation(event.getPlayer(), "KnockBackFFA");
-            }
-        } else if (event.getItem().getType() == Material.BARRIER) {
-            if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-                event.setCancelled(true);
-                spieler.getInventory().clear();
-                if (de.maifii.navigator.main.Navigator.getEnderPerleGadget().contains(spieler)) {
-                    ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.RECORD_3, "§8§l»§7» §eNavigator §8| §7Rechtsklick", 0);
-                    ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.ENDER_PEARL, "§8§l»§7» §eEnderPerle §8| §7Rechtsklick", 2);
-                    ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.NOTE_BLOCK, "§8§l»§7» §eExtras §8| §7Rechtsklick", 8);
-                } else if(de.maifii.navigator.main.Navigator.getEnterhakenGadget().contains(spieler)) {
-                    ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.RECORD_3, "§8§l»§7» §eNavigator §8| §7Rechtsklick", 0);
-                    ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.FISHING_ROD, "§8§l»§7» §eEnterHaken §8| §7Rechtsklick", 2);
-                    ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.NOTE_BLOCK, "§8§l»§7» §eExtras §8| §7Rechtsklick", 8);
-                }
-                    else{
+        if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+            switch (event.getItem().getType()) {
+                case BED:
+
+                    LocationUtils.useLocation(event.getPlayer(), "BedWars");
+
+                    break;
+
+                case IRON_SWORD:
+
+                    LocationUtils.useLocation(event.getPlayer(), "SurvivalGames");
+
+                    break;
+
+                case STICK:
+
+                    LocationUtils.useLocation(event.getPlayer(), "KnockBackFFA");
+
+                    break;
+
+                case BARRIER:
+                    spieler.getInventory().clear();
+                    if (Lobby.getEnderPerleGadget().contains(spieler)) {
+                        ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.RECORD_3, "§8§l»§7» §eNavigator §8| §7Rechtsklick", 0);
+                        ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.ENDER_PEARL, "§8§l»§7» §eEnderPerle §8| §7Rechtsklick", 2);
+                        ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.NOTE_BLOCK, "§8§l»§7» §eExtras §8| §7Rechtsklick", 8);
+                    } else if (Lobby.getEnterhakenGadget().contains(spieler)) {
+                        ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.RECORD_3, "§8§l»§7» §eNavigator §8| §7Rechtsklick", 0);
+                        ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.FISHING_ROD, "§8§l»§7» §eEnterHaken §8| §7Rechtsklick", 2);
+                        ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.NOTE_BLOCK, "§8§l»§7» §eExtras §8| §7Rechtsklick", 8);
+                    } else {
                         ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.RECORD_3, "§8§l»§7» §eNavigator §8| §7Rechtsklick", 0);
                         ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.BARRIER, "§8§l»§7» §7§lGadget Auswählen!", 2);
                         ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.NOTE_BLOCK, "§8§l»§7» §eExtras §8| §7Rechtsklick", 8);
                     }
-                }
             }
         }
+    }
 
-    public void openEffekte(Player spieler) {
+
+
+
+
+
+
+        public void openEffekte(Player spieler) {
         Inventory eff = Bukkit.createInventory(null, 9*6, EffektGUI);
 
         ItemUtils.setItemInInventory(eff, Material.STAINED_GLASS_PANE, " ", 0 );
@@ -206,12 +214,12 @@ public class Navigator implements Listener {
             switch (event.getCurrentItem().getType()) {
                 case FISHING_ROD:
                     ItemUtils.setItemInInventory(event.getWhoClicked().getInventory(), Material.FISHING_ROD, "§8§l»§7» §eEnterHaken §8| §7Rechtsklick", 2);
-                    de.maifii.navigator.main.Navigator.getEnterhakenGadget().add(spieler);
+                    Lobby.getEnterhakenGadget().add(spieler);
                     break;
 
                 case ENDER_PEARL:
                     ItemUtils.setItemInInventory(event.getWhoClicked().getInventory(), Material.ENDER_PEARL, "§8§l»§7» §eEnderPerle §8| §7Rechtsklick", 2);
-                    de.maifii.navigator.main.Navigator.getEnderPerleGadget().add(spieler);
+                    Lobby.getEnderPerleGadget().add(spieler);
                     break;
 
                 case BREWING_STAND_ITEM:
@@ -233,54 +241,54 @@ public class Navigator implements Listener {
                     openGadgets((Player) event.getWhoClicked());
                     break;
                 case WATER_BUCKET:
-                    if(de.maifii.navigator.main.Navigator.getEnderPartikel().contains(spieler))
-                        de.maifii.navigator.main.Navigator.getEnderPartikel().remove(spieler);
-                    if(de.maifii.navigator.main.Navigator.getSchneePartikel().contains(spieler))
-                        de.maifii.navigator.main.Navigator.getSchneePartikel().remove(spieler);
-                    if(de.maifii.navigator.main.Navigator.getHerzPartikel().contains(spieler))
-                        de.maifii.navigator.main.Navigator.getHerzPartikel().remove(spieler);
+                    if(Lobby.getEnderPartikel().contains(spieler))
+                        Lobby.getEnderPartikel().remove(spieler);
+                    if(Lobby.getSchneePartikel().contains(spieler))
+                        Lobby.getSchneePartikel().remove(spieler);
+                    if(Lobby.getHerzPartikel().contains(spieler))
+                        Lobby.getHerzPartikel().remove(spieler);
 
-                    if(de.maifii.navigator.main.Navigator.getWasserPartikel().contains(spieler)) {
-                        spieler.sendMessage(de.maifii.navigator.main.Navigator.Prefix + "Du hast bereits die §eWasser Partikel §7ausgewählt.");
+                    if(Lobby.getWasserPartikel().contains(spieler)) {
+                        spieler.sendMessage(Lobby.Prefix + "Du hast bereits die §eWasser Partikel §7ausgewählt.");
                         spieler.closeInventory();
                     }
                     else {
-                        de.maifii.navigator.main.Navigator.getWasserPartikel().add(spieler);
-                        spieler.sendMessage(de.maifii.navigator.main.Navigator.Prefix + "Du hast die §eWasser Partikel §7ausgewählt.");
+                        Lobby.getWasserPartikel().add(spieler);
+                        spieler.sendMessage(Lobby.Prefix + "Du hast die §eWasser Partikel §7ausgewählt.");
                     }
                     break;
 
                 case RED_ROSE:
-                    if(de.maifii.navigator.main.Navigator.getEnderPartikel().contains(spieler))
-                        de.maifii.navigator.main.Navigator.getEnderPartikel().remove(spieler);
-                    if(de.maifii.navigator.main.Navigator.getSchneePartikel().contains(spieler))
-                        de.maifii.navigator.main.Navigator.getSchneePartikel().remove(spieler);
-                    if(de.maifii.navigator.main.Navigator.getWasserPartikel().contains(spieler))
-                        de.maifii.navigator.main.Navigator.getWasserPartikel().remove(spieler);
+                    if(Lobby.getEnderPartikel().contains(spieler))
+                        Lobby.getEnderPartikel().remove(spieler);
+                    if(Lobby.getSchneePartikel().contains(spieler))
+                        Lobby.getSchneePartikel().remove(spieler);
+                    if(Lobby.getWasserPartikel().contains(spieler))
+                        Lobby.getWasserPartikel().remove(spieler);
 
-                    if(de.maifii.navigator.main.Navigator.getHerzPartikel().contains(spieler)) {
-                        spieler.sendMessage(de.maifii.navigator.main.Navigator.Prefix + "Du hast bereits die §eHerz Partikel §7ausgewählt.");
+                    if(Lobby.getHerzPartikel().contains(spieler)) {
+                        spieler.sendMessage(Lobby.Prefix + "Du hast bereits die §eHerz Partikel §7ausgewählt.");
                     }
                     else{
-                        de.maifii.navigator.main.Navigator.getHerzPartikel().add(spieler);
-                        spieler.sendMessage(de.maifii.navigator.main.Navigator.Prefix + "Du hast die §eHerz Partikel §7ausgewählt.");
+                        Lobby.getHerzPartikel().add(spieler);
+                        spieler.sendMessage(Lobby.Prefix + "Du hast die §eHerz Partikel §7ausgewählt.");
                     }
                     break;
 
                 case SNOW_BALL:
-                    if(de.maifii.navigator.main.Navigator.getEnderPartikel().contains(spieler))
-                        de.maifii.navigator.main.Navigator.getEnderPartikel().remove(spieler);
-                    if(de.maifii.navigator.main.Navigator.getHerzPartikel().contains(spieler))
-                        de.maifii.navigator.main.Navigator.getHerzPartikel().remove(spieler);
-                    if(de.maifii.navigator.main.Navigator.getWasserPartikel().contains(spieler))
-                        de.maifii.navigator.main.Navigator.getWasserPartikel().remove(spieler);
+                    if(Lobby.getEnderPartikel().contains(spieler))
+                        Lobby.getEnderPartikel().remove(spieler);
+                    if(Lobby.getHerzPartikel().contains(spieler))
+                        Lobby.getHerzPartikel().remove(spieler);
+                    if(Lobby.getWasserPartikel().contains(spieler))
+                        Lobby.getWasserPartikel().remove(spieler);
 
-                    if(de.maifii.navigator.main.Navigator.getSchneePartikel().contains(spieler)) {
-                        spieler.sendMessage(de.maifii.navigator.main.Navigator.Prefix + "Du hast bereits die §eSchnee Partikel §7ausgewählt.");
+                    if(Lobby.getSchneePartikel().contains(spieler)) {
+                        spieler.sendMessage(Lobby.Prefix + "Du hast bereits die §eSchnee Partikel §7ausgewählt.");
                     }
                     else{
-                        de.maifii.navigator.main.Navigator.getSchneePartikel().add(spieler);
-                        spieler.sendMessage(de.maifii.navigator.main.Navigator.Prefix + "Du hast die §eSchnee Partikel §7ausgewählt.");
+                        Lobby.getSchneePartikel().add(spieler);
+                        spieler.sendMessage(Lobby.Prefix + "Du hast die §eSchnee Partikel §7ausgewählt.");
                     }
                     break;
             }

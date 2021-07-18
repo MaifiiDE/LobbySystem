@@ -1,10 +1,12 @@
 name: Navigator
-main: de.maifii.navigator.main.Navigator
+main: de.maifii.navigator.main.Lobby
 version: 1.0
 
 commands:
   set:
     description: Location setzen
+  build:
+    description: Setzt dich in den Bau Modus
 
 authors:
   - MaifiiDE

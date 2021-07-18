@@ -1,6 +1,6 @@
 package de.maifii.navigator.commands;
 
-import de.maifii.navigator.main.Navigator;
+import de.maifii.navigator.main.Lobby;
 import de.maifii.navigator.utils.LocationUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -21,10 +21,10 @@ public class SetCommand implements CommandExecutor {
         if(sender instanceof Player){
             if(spieler.hasPermission("lobby.set")) {
                 LocationUtils.setLocation(args[0], spieler);
-                spieler.sendMessage(Navigator.Prefix+ "Du hast die Location §e" + args[0] + " §7gesetzt.");
+                spieler.sendMessage(Lobby.Prefix+ "Du hast die Location §e" + args[0] + " §7gesetzt.");
             }
             else{
-                spieler.sendMessage(Navigator.Prefix + "Dazu hast du §ekeine §7Berechtigung.");
+                spieler.sendMessage(Lobby.Prefix + "Dazu hast du §ekeine §7Berechtigung.");
             }
     }
         return false;
