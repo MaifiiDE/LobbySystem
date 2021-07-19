@@ -68,17 +68,23 @@ public class Navigator implements Listener {
 
                     break;
 
+
                 case BARRIER:
                     spieler.getInventory().clear();
                     if (Lobby.getEnderPerleGadget().contains(spieler)) {
                         ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.RECORD_3, "§8§l»§7» §eNavigator §8| §7Rechtsklick", 0);
                         ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.ENDER_PEARL, "§8§l»§7» §eEnderPerle §8| §7Rechtsklick", 2);
                         ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.NOTE_BLOCK, "§8§l»§7» §eExtras §8| §7Rechtsklick", 8);
-                    } else if (Lobby.getEnterhakenGadget().contains(spieler)) {
+                    }
+
+                    else if (Lobby.getEnterhakenGadget().contains(spieler)) {
                         ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.RECORD_3, "§8§l»§7» §eNavigator §8| §7Rechtsklick", 0);
                         ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.FISHING_ROD, "§8§l»§7» §eEnterHaken §8| §7Rechtsklick", 2);
                         ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.NOTE_BLOCK, "§8§l»§7» §eExtras §8| §7Rechtsklick", 8);
-                    } else {
+                    }
+
+
+                    else{
                         ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.RECORD_3, "§8§l»§7» §eNavigator §8| §7Rechtsklick", 0);
                         ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.BARRIER, "§8§l»§7» §7§lGadget Auswählen!", 2);
                         ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.NOTE_BLOCK, "§8§l»§7» §eExtras §8| §7Rechtsklick", 8);
@@ -117,6 +123,8 @@ public class Navigator implements Listener {
         ItemUtils.setItemInInventory(eff, Material.SNOW_BALL, "§8§l»§7» §eSchne Partikel", 14 );
         ItemUtils.setItemInInventory(eff, Material.RED_ROSE, "§8§l»§7» §eHerz Partikel", 15 );
 
+        ItemUtils.setItemInInventory(eff, Material.BARRIER, "§8§l»§7» §eAblegen", 53 );
+
         spieler.openInventory(eff);
     }
 
@@ -146,6 +154,8 @@ public class Navigator implements Listener {
 
         ItemUtils.setItemInInventory(gad, Material.ENDER_PEARL, "§8§l»§7» §eEnderPerle", 13 );
         ItemUtils.setItemInInventory(gad, Material.FISHING_ROD, "§8§l»§7» §eEnterHaken", 14 );
+
+        ItemUtils.setItemInInventory(gad, Material.BARRIER, "§8§l»§7» §eAblegen", 53 );
 
 
         spieler.openInventory(gad);
@@ -214,16 +224,33 @@ public class Navigator implements Listener {
             switch (event.getCurrentItem().getType()) {
                 case FISHING_ROD:
                     ItemUtils.setItemInInventory(event.getWhoClicked().getInventory(), Material.FISHING_ROD, "§8§l»§7» §eEnterHaken §8| §7Rechtsklick", 2);
+                    if(Lobby.getEnderPerleGadget().contains(spieler)) {
+                        Lobby.getEnderPerleGadget().remove(spieler);
+                    }
                     Lobby.getEnterhakenGadget().add(spieler);
+                    spieler.closeInventory();
                     break;
 
                 case ENDER_PEARL:
                     ItemUtils.setItemInInventory(event.getWhoClicked().getInventory(), Material.ENDER_PEARL, "§8§l»§7» §eEnderPerle §8| §7Rechtsklick", 2);
+                    if(Lobby.getEnterhakenGadget().contains(spieler)) {
+                        Lobby.getEnterhakenGadget().remove(spieler);
+                    }
                     Lobby.getEnderPerleGadget().add(spieler);
+                    spieler.closeInventory();
                     break;
 
                 case BREWING_STAND_ITEM:
                     openEffekte((Player) event.getWhoClicked());
+                    break;
+
+                case BARRIER:
+                    Lobby.getEnderPerleGadget().remove(spieler);
+                    Lobby.getEnterhakenGadget().remove(spieler);
+
+                    ItemUtils.setItemInInventory(event.getWhoClicked().getInventory(), Material.BARRIER, "§8§l»§7» §7§lGadget Auswählen!", 2);
+
+                    spieler.closeInventory();
                     break;
             }
         }
@@ -256,6 +283,7 @@ public class Navigator implements Listener {
                         Lobby.getWasserPartikel().add(spieler);
                         spieler.sendMessage(Lobby.Prefix + "Du hast die §eWasser Partikel §7ausgewählt.");
                     }
+                    spieler.closeInventory();
                     break;
 
                 case RED_ROSE:
@@ -273,6 +301,7 @@ public class Navigator implements Listener {
                         Lobby.getHerzPartikel().add(spieler);
                         spieler.sendMessage(Lobby.Prefix + "Du hast die §eHerz Partikel §7ausgewählt.");
                     }
+                    spieler.closeInventory();
                     break;
 
                 case SNOW_BALL:
@@ -290,6 +319,15 @@ public class Navigator implements Listener {
                         Lobby.getSchneePartikel().add(spieler);
                         spieler.sendMessage(Lobby.Prefix + "Du hast die §eSchnee Partikel §7ausgewählt.");
                     }
+                    spieler.closeInventory();
+                    break;
+
+                case BARRIER:
+                    Lobby.getEnderPartikel().remove(spieler);
+                    Lobby.getHerzPartikel().remove(spieler);
+                    Lobby.getSchneePartikel().remove(spieler);
+                    spieler.sendMessage(Lobby.Prefix + "Du hast §ealle §7deine Partikel abgelegt.");
+                    spieler.closeInventory();
                     break;
             }
         }

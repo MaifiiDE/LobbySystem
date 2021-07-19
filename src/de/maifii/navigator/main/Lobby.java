@@ -35,6 +35,7 @@ public class Lobby extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        //init
         PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents((Listener) new de.maifii.navigator.listeners.Navigator(),  this);
         pluginManager.registerEvents((Listener) new ConnectionListener(), this);
@@ -49,10 +50,8 @@ public class Lobby extends JavaPlugin {
         getCommand("set").setExecutor(new SetCommand());
         getCommand("build").setExecutor(new BuildCommand());
 
-
-        BuildMode = new ArrayList<Player>();
-
         instance = this;
+        BuildMode = new ArrayList<Player>();
         SchneePartikel = new ArrayList<Player>();
         WasserPartikel = new ArrayList<Player>();
         EnderPartikel = new ArrayList<Player>();
@@ -60,6 +59,14 @@ public class Lobby extends JavaPlugin {
 
         EnderPerleGadget = new ArrayList<Player>();
         EnterhakenGadget = new ArrayList<Player>();
+
+        Bukkit.getConsoleSender().sendMessage(" ");
+        Bukkit.getConsoleSender().sendMessage(" ");
+        Bukkit.getConsoleSender().sendMessage(Lobby.Prefix + "LobbySystem v1");
+        Bukkit.getConsoleSender().sendMessage(Lobby.Prefix + "Code by Maifii");
+        Bukkit.getConsoleSender().sendMessage(Lobby.Prefix + "Discord : MaifiiDE#3511");
+        Bukkit.getConsoleSender().sendMessage(" ");
+        Bukkit.getConsoleSender().sendMessage(" ");
     }
 
 

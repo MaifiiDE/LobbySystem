@@ -18,15 +18,15 @@ public class SetCommand implements CommandExecutor {
         File ordner = new File("plugins//Lobby//");
         File file = new File("plugins//Lobby//" + args[0] + ".yml");
 
-        if(sender instanceof Player){
-            if(spieler.hasPermission("lobby.set")) {
+
+        if (sender instanceof Player) {
+            if (spieler.hasPermission("lobby.set")) {
                 LocationUtils.setLocation(args[0], spieler);
-                spieler.sendMessage(Lobby.Prefix+ "Du hast die Location §e" + args[0] + " §7gesetzt.");
-            }
-            else{
+                spieler.sendMessage(Lobby.Prefix + "Du hast die Location §e" + args[0] + " §7gesetzt.");
+            } else {
                 spieler.sendMessage(Lobby.Prefix + "Dazu hast du §ekeine §7Berechtigung.");
             }
-    }
+        }
         return false;
-}
+    }
 }

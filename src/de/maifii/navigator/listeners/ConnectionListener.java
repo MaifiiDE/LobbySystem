@@ -1,6 +1,7 @@
 package de.maifii.navigator.listeners;
 
 import de.maifii.navigator.utils.ItemUtils;
+import de.maifii.navigator.utils.LocationUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,6 +20,9 @@ public class ConnectionListener implements Listener {
         ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.BARRIER, "§8§l»§7» §7§lGadget Auswählen!", 2);
         ItemUtils.setItemInInventory(event.getPlayer().getInventory(), Material.NOTE_BLOCK, "§8§l»§7» §eGadgets §8| §7Rechtsklick", 8);
 
+        LocationUtils.useLocation(event.getPlayer(), "Spawn");
+
+        spieler.setLevel(2021);
 
         event.setJoinMessage(null);
     }
