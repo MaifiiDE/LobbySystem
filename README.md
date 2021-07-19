@@ -1,7 +1,5 @@
 # LobbySystem | Hotbar Navigator
 
-In Arbeit!
-
 ## Was macht dieses Plugin?
 Dieses Plugin ist ein komplettes LobbySystem für Spigot 1.8.
 Warum es Navigator--Teamkyudo heißt?
