@@ -7,6 +7,7 @@ package de.maifii.navigator.main;
 
 import de.maifii.navigator.commands.BuildCommand;
 import de.maifii.navigator.commands.SetCommand;
+import de.maifii.navigator.commands.SetupCommand;
 import de.maifii.navigator.listeners.*;
 import de.maifii.navigator.listeners.Gadgets.EnderPerleListener;
 import de.maifii.navigator.listeners.Gadgets.EnterHakenGadget;
@@ -49,7 +50,7 @@ public class Lobby extends JavaPlugin {
 
         getCommand("set").setExecutor(new SetCommand());
         getCommand("build").setExecutor(new BuildCommand());
-        getCommand("setup").setExecutor(new SetCommand());
+        getCommand("setup").setExecutor(new SetupCommand());
 
         instance = this;
         BuildMode = new ArrayList<Player>();
