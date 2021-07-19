@@ -323,6 +323,7 @@ public class Navigator implements Listener {
                     break;
 
                 case BARRIER:
+                    Lobby.getWasserPartikel().remove(spieler);
                     Lobby.getEnderPartikel().remove(spieler);
                     Lobby.getHerzPartikel().remove(spieler);
                     Lobby.getSchneePartikel().remove(spieler);

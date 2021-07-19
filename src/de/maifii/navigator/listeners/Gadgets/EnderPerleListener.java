@@ -25,6 +25,7 @@ public class EnderPerleListener implements Listener {
 
                 EnderPearl enderPearl = spieler.launchProjectile(EnderPearl.class);
                 enderPearl.setPassenger(spieler);
+                spieler.updateInventory();
             }
         }
     }

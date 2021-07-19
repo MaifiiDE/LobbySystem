@@ -49,6 +49,7 @@ public class Lobby extends JavaPlugin {
 
         getCommand("set").setExecutor(new SetCommand());
         getCommand("build").setExecutor(new BuildCommand());
+        getCommand("setup").setExecutor(new SetCommand());
 
         instance = this;
         BuildMode = new ArrayList<Player>();
